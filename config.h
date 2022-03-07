@@ -1,7 +1,9 @@
 #define DEBUG 1
 #define BAUDRATE 9600
-#define RXPIN 3  // Vers la broche TX du module bluetooth
-#define TXPIN 2  // Vers la broche RX du module bluetooth
+#define RXPIN 11  // Vers la broche TX du module bluetooth
+#define TXPIN 12  // Vers la broche RX du module bluetooth
+#define TIMEOUT 5
+#define TERMINATOR '\n'
 
 // 9 et 6 Moteur Droite
 // 3 et 5 Moteur Gauche
