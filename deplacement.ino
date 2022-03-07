@@ -7,11 +7,7 @@ void avancer(unsigned long temps) {
 
   delay(temps);
 
-  analogWrite(MOTEUR_GAUCHE_BACKWARD, 0);
-  analogWrite(MOTEUR_GAUCHE_FORWARD, 0);
-
-  analogWrite(MOTEUR_DROIT_BACKWARD, 0);
-  analogWrite(MOTEUR_DROIT_FORWARD, 0);
+  reset();
 }
 
 void reculer(unsigned long temps){
@@ -23,6 +19,10 @@ void reculer(unsigned long temps){
 
   delay(temps);
 
+  reset();
+}
+
+void reset() {
   analogWrite(MOTEUR_GAUCHE_BACKWARD, 0);
   analogWrite(MOTEUR_GAUCHE_FORWARD, 0);
 
