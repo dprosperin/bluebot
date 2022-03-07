@@ -1,12 +1,27 @@
+/*
+ * Ce bout de code fonctionne avec les modules :
+ *  - Bluetooth HC-06
+ * 
+ * Code : 
+ *  'avancer' -> avancer pendant MOVING_TIME
+ *  'reculer' -> reculer pendant MOVING_TIME
+ * 
+ * Note : 
+ * Le code doit se terminer par un retour chariot.
+ * 
+ * Lorsque BTserial reçoit le message :
+ * 1 - il le lire directement 
+ * 2 - si il est égale à 'avancer' alors il avancer pendant 1s sinon si il est égale à 'reculer' il reculer pendant 1s ou sinon il affiche un message d'erreur
+ */
+
 #include "config.h"
+#include "deplacement.h"
 #include <SoftwareSerial.h>
 
 SoftwareSerial BTserial(RXPIN, TXPIN);
 
 String message;
 
-void reculer(unsigned long temps);
-void avancer(unsigned long temps);
 void setup() {
     Serial.begin(BAUDRATE);
   
@@ -28,9 +43,9 @@ void loop() {
       Serial.println(message);
     #endif
     if (message == "avancer") {
-      avancer(1000);
+      avancer(MOVING_TIME);
     } else if (message == "reculer") {
-      reculer(1000);
+      reculer(MOVING_TIME);
     } else {
       Serial.print("Error the following character is not a valid command : ");
       #if DEBUG == 1
@@ -39,37 +54,5 @@ void loop() {
     }
   }
   BTserial.flush();
-  delay(1000);
 }
 
-void avancer(unsigned long temps) {
-  analogWrite(MOTEUR_GAUCHE_2, 0);
-  analogWrite(MOTEUR_GAUCHE_1, 200);
-
-  analogWrite(MOTEUR_DROIT_1, 0);
-  analogWrite(MOTEUR_DROIT_2, 200);
-
-  delay(temps);
-
-  analogWrite(MOTEUR_GAUCHE_2, 0);
-  analogWrite(MOTEUR_GAUCHE_1, 0);
-
-  analogWrite(MOTEUR_DROIT_1, 0);
-  analogWrite(MOTEUR_DROIT_2, 0);
-}
-
-void reculer(unsigned long temps){
-  analogWrite(MOTEUR_GAUCHE_2, 200);
-  analogWrite(MOTEUR_GAUCHE_1, 0);
-
-  analogWrite(MOTEUR_DROIT_1, 200);
-  analogWrite(MOTEUR_DROIT_2, 0);
-
-  delay(temps);
-
-  analogWrite(MOTEUR_GAUCHE_2, 0);
-  analogWrite(MOTEUR_GAUCHE_1, 0);
-
-  analogWrite(MOTEUR_DROIT_1, 0);
-  analogWrite(MOTEUR_DROIT_2, 0);
-}
