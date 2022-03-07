@@ -5,6 +5,8 @@
  * Code : 
  *  'avancer' -> avancer pendant MOVING_TIME
  *  'reculer' -> reculer pendant MOVING_TIME
+ *  'gauche'  -> aller à gauche pendant MOVING_TIME
+ *  'droite'  -> aller à droite pendant MOVING_TIME
  * 
  * Note : 
  * Le code doit se terminer par un retour chariot.
@@ -46,6 +48,10 @@ void loop() {
       avancer(MOVING_TIME);
     } else if (message == "reculer") {
       reculer(MOVING_TIME);
+    } else if (message == "gauche") {
+      gauche(MOVING_TIME); 
+    } else if (message == "droite") {
+      droite(MOVING_TIME);
     } else {
       Serial.print("Error the following character is not a valid command : ");
       #if DEBUG == 1
@@ -55,4 +61,3 @@ void loop() {
   }
   BTserial.flush();
 }
-
