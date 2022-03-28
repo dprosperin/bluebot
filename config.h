@@ -10,8 +10,7 @@
  */
 
 
-#define TIMEOUT 5
-#define TERMINATOR '\n'
+#define TIMEOUT 100
 
 // 9 et 6 Moteur Droite
 // 3 et 5 Moteur Gauche
@@ -22,5 +21,4 @@
 #define MOTEUR_DROIT_FORWARD 9
 #define MOTEUR_DROIT_BACKWARD 6
 
-
-#define MOVING_TIME 1000 // Le temps en milliseconde pendant lequel on active le moteur
+#define MOVING_TIME 50 // Le temps en milliseconde pendant lequel on active le moteur

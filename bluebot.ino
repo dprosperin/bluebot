@@ -3,17 +3,10 @@
  *  - Bluetooth HC-06
  * 
  * Code : 
- *  'avancer' -> avancer pendant MOVING_TIME
- *  'reculer' -> reculer pendant MOVING_TIME
- *  'gauche'  -> aller à gauche pendant MOVING_TIME
- *  'droite'  -> aller à droite pendant MOVING_TIME
- * 
- * Note : 
- * Le code doit se terminer par un retour chariot.
- * 
- * Lorsque BTserial reçoit le message :
- * 1 - il le lire directement 
- * 2 - si il est égale à 'avancer' alors il avancer pendant 1s sinon si il est égale à 'reculer' il reculer pendant 1s ou sinon il affiche un message d'erreur
+ *  'a'  -> avancer pendant MOVING_TIME
+ *  'r'  -> reculer pendant MOVING_TIME
+ *  'g'  -> aller à gauche pendant MOVING_TIME / 2
+ *  'd'  -> aller à droite pendant MOVING_TIME / 2
  */
 
 #include "config.h"
@@ -22,7 +15,7 @@
 
 SoftwareSerial BTserial(RXPIN, TXPIN);
 
-String message;
+char message;
 
 void setup() {
     Serial.begin(BAUDRATE);
@@ -39,24 +32,24 @@ void setup() {
 
 void loop() {
   if (BTserial.available()) {
-    message = BTserial.readStringUntil(TERMINATOR);
+    
+    message = BTserial.read();
     #if DEBUG == 1
       Serial.print("Received message : ");
       Serial.println(message);
     #endif
-    if (message == "avancer") {
+
+    if (message == 'a') {
       avancer(MOVING_TIME);
-    } else if (message == "reculer") {
+    } else if (message == 'r') {
       reculer(MOVING_TIME);
-    } else if (message == "gauche") {
-      gauche(MOVING_TIME); 
-    } else if (message == "droite") {
-      droite(MOVING_TIME);
+    } else if (message == 'g') {
+      gauche(MOVING_TIME / 2); 
+    } else if (message == 'd') {
+      droite(MOVING_TIME / 2);
     } else {
       Serial.print("Error the following character is not a valid command : ");
-      #if DEBUG == 1
-        Serial.println(message);
-      #endif        
+      Serial.println(message, BIN);      
     }
   }
   BTserial.flush();
