@@ -2,7 +2,7 @@
  * Ce bout de code fonctionne avec les modules :
  *  - Bluetooth HC-06
  * 
- * Code : 
+ * On définit le code suivant: 
  *  'a'  -> avancer pendant MOVING_TIME
  *  'r'  -> reculer pendant MOVING_TIME
  *  'g'  -> aller à gauche pendant MOVING_TIME / 2
@@ -31,6 +31,9 @@ void setup() {
 }
 
 void loop() {
+  /*
+   * On test si on reçoit un caractère.
+   */
   if (BTserial.available()) {
     
     message = BTserial.read();
@@ -39,6 +42,9 @@ void loop() {
       Serial.println(message);
     #endif
 
+    /*
+     * On applique le code défini plus haut sur le caractère reçu.
+     */
     if (message == 'a') {
       avancer(MOVING_TIME);
     } else if (message == 'r') {
@@ -48,6 +54,9 @@ void loop() {
     } else if (message == 'd') {
       droite(MOVING_TIME / 2);
     } else {
+      /*
+       * On affiche le message reçu si il ne correspond pas au code défini plus haut.
+       */
       Serial.print("Error the following character is not a valid command : ");
       Serial.println(message, BIN);      
     }
